@@ -24,6 +24,9 @@
   appendix: [],
   doc,
 ) = {
+  set document(title: topic, author: name)
+
+
   cover-page(
     graduate-year: graduate-year,
     topic: topic,
