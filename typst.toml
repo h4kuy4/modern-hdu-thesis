@@ -1,0 +1,15 @@
+[package]
+name = "modern-hdu-thesis"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["h4kuy4"]
+license = "MIT"
+description = "杭州电子科技大学论文模板"
+repository = "https://github.com/h4kuy4/modern-hdu-thesis"
+keywords = ["Hangzhou Dianzi University", "thesis"]
+categories = ["thesis"]
+compiler = "0.13.0"
+
+[template]
+path = "template"
+entrypoint = "main.typ"
