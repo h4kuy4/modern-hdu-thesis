@@ -1,30 +1,21 @@
-#import "../utils/font.typ": 字号
-#import "../layouts/thesis-page.typ": thesis-page
+#import "../layouts/basic-layout.typ": basic-layout
+#import "../layouts/page-layout.typ": page-header, page-footer
+#import "../utils/font.typ": 字号, 字体
 
-#let outline-page(pager-state: state) = {
-  show: thesis-page.with(footer: false)
+#let outline-page(pager-state: state) = context {
+  show: page-header.with()
+  show: basic-layout.with()
 
-  set heading(outlined: false)
-  show heading.where(level: 1): it => [
-    #set align(center)
-    #set text(top-edge: "bounds", bottom-edge: "bounds")
-    #set par(first-line-indent: 0em)
+  set heading(outlined: false, numbering: none)
 
-    #v(1.5em)
-    #set text(font: ("Times New Roman", "SimHei"), size: 字号.三号)
-    #it.body
-    #v(1.75em)
-  ]
+  let indent-width = (0em, 1.6em, 4em)
 
   set outline.entry(fill: repeat([.], gap: 0.01em))
-  show outline.entry: it => [
-    #it.indented(it.prefix(), it.inner(), gap: 1em)
-  ]
-  show outline: set text(
-    font: ("Times New Roman", "SimSun"),
-    size: 字号.小四,
-    top-edge: "bounds",
-    bottom-edge: "bounds",
+  set outline(depth: 3, indent: n => indent-width.at(n))
+
+  show outline.entry: it => link(
+    it.element.location(),
+    it.indented(it.prefix(), it.inner(), gap: 1em),
   )
 
   show outline: it => {
@@ -33,5 +24,9 @@
     pager-state.update(false)
   }
 
-  outline(title: text(tracking: 2em)[目录])
+  [
+    = 目#h(2em)录
+    #v(0.25em)
+    #outline(title: none)
+  ]
 }

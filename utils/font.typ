@@ -17,3 +17,10 @@
   七号: 5.5pt,
   小七: 5pt,
 )
+
+#let 字体 = (
+  宋体: ((name: "Times New Roman", covers: "latin-in-cjk"), "SimSun"),
+  黑体: ((name: "Arial", covers: "latin-in-cjk"), "SimHei"),
+  黑体-标题: ((name: "Times New Roman", covers: "latin-in-cjk"), "SimHei"),
+  楷体: ((name: "Times New Roman", covers: "latin-in-cjk"), "KaiTi"),
+)

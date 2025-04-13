@@ -1,4 +1,4 @@
-#import "../lib.typ": thesis-init, thesis-body
+#import "../lib.typ": thesis-init, appendix
 
 #show: thesis-init.with(
   abstract-cn: [
@@ -6,17 +6,9 @@
 
     中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试
   ],
-  acknowledgement: [
-    这里是致谢示例
-  ],
-  reference: bibliography("reference.bib"),
-  appendix: [
-    这里是附录示例
-  ],
 )
 
-
-= 导　论
+= 导论
 
 == 参考文献
 
@@ -89,8 +81,27 @@
 ) <test>
 
 
-== 公式
+== 公式<equation>
 
 引用@eqt:test-equation
 
 $ F_n = floor(1 / sqrt(5) phi.alt^n) $ <test-equation>
+
+== 章节引用
+
+这里引用@equation，这里引用@appendix-1
+
+= 致谢 <acknowledgement>
+
+致谢需要有`<acknowledgement>`标签
+
+#bibliography("reference.bib"),
+
+#show: appendix.with()
+= 附录示例<appendix-1>
+
+这里是附录
+
+= 附录示例
+
+这里还是附录

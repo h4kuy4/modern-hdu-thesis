@@ -2,8 +2,10 @@
 #import "pages/cover-page.typ": cover-page
 #import "pages/decl-page.typ": decl-page
 #import "pages/outline-page.typ": outline-page
-#import "layouts/thesis-body.typ": thesis-body
-#import "layouts/thesis-page.typ": thesis-page
+#import "layouts/basic-layout.typ": basic-layout
+#import "layouts/page-layout.typ": page-header, page-footer
+
+#import "@preview/i-figured:0.2.4"
 
 #let thesis-init(
   graduate-year: 2025,
@@ -19,13 +21,11 @@
   abstract-en: lorem(100),
   keywords-cn: ("Typst", "论文模板"),
   keywords-en: ("Typst", "Thesis Template"),
-  acknowledgement: none,
-  reference: [],
-  appendix: [],
   doc,
 ) = {
   set document(title: topic, author: name)
 
+  let s = state("pager-state", false)
 
   cover-page(
     graduate-year: graduate-year,
@@ -45,33 +45,24 @@
 
   abstract-page-en(keywords: keywords-en, abstract-en)
 
-  let pager-state = state("pager-state", false)
+  outline-page(pager-state: s)
 
-  outline-page(pager-state: pager-state)
 
-  show: thesis-page.with(pager-state: pager-state)
-  show: thesis-body.with()
+  show: page-header.with()
+  show: page-footer.with(pager-state: s)
+  show: basic-layout.with()
+
+  show <acknowledgement>: set heading(numbering: none)
 
   counter(page).update(1)
   doc
+}
 
-  set heading(numbering: none)
+#let appendix(doc) = {
+  counter(heading).update(0)
+  set heading(numbering: "附录A", supplement: [附录])
 
-  if acknowledgement != none [
-    #pagebreak(weak: true)
-    = 致谢
-    #acknowledgement
-  ]
+  show figure: i-figured.show-figure.with(numbering: "A-1")
 
-  if reference != none [
-    #set bibliography(title: "参考文献", style: "gb-7714-2015-numeric")
-    #pagebreak(weak: true)
-    #reference
-  ]
-
-  if reference != none [
-    #pagebreak(weak: true)
-    = 附录
-    #appendix
-  ]
+  doc
 }

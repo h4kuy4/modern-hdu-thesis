@@ -1,6 +1,5 @@
 #import "@preview/cuti:0.2.1": *
 
-#import "../layouts/thesis-page.typ": thesis-page
 #import "../utils/font.typ": 字号
 
 #let cover-page(
@@ -15,7 +14,7 @@
   supervisor: str,
   complete-time: datetime,
 ) = {
-  show: thesis-page.with(header: false, footer: false)
+  set page(paper: "a4", margin: (top: 3cm, bottom: 2cm, left: 4cm, right: 2cm))
   show: set align(center)
 
   v(1.75cm)
